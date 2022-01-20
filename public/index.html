@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jansen Gallery</title>
+    <meta name="description" content="Hello, WebVR! - A-Frame" />
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <script>
+      AFRAME.registerComponent("sound-mod", {
+        schema: {
+          playing: {
+            type: "boolean",
+            default: false
+          }
+        },
+        update: function() {
+          let data = this.data;
+          let el = this.el;
+          let playing = data.playing;
+          var sceneEl = document.querySelector('a-scene');
+          
+          // get all entities
+          let all_els = sceneEl.querySelectorAll('[sound]');
+
+          el.addEventListener("click", () => {
+            for (var i = 0; i < all_els.length; i++){
+                all_els[i].components.sound.pauseSound();
+            }
+            el.components.sound.playSound();
+          });
+        }
+      });
+    </script>
+ 
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="stand1" src="newtable.gltf"></a-asset-item>
+     
+      </a-assets>
+      <a-entity id="sierra-nevada" position="0 2 -1.5">
+          <a-box depth="0.05" height=".72" width="1.2"
+          src="https://cdn.glitch.global/2b999408-5306-4b38-80db-713c0d2ecf09/0_7e90vU0d-iy-jXgH.jpg?v=1642686310125">
+          </a-box>
+</a-entity>
+
+      <a-entity camera look-controls wasd-controls position="0 2.5 0">
+      </a-entity>
+
+      <a-camera position="0 1.5 0">
+        <a-cursor color="#00E4FF"></a-cursor>
+      </a-camera>
+
+      <a-entity
+        id="stand"
+        position="3 -.1 .2"
+      >
+        <a-gltf-model src="#stand1"
+          rotation="0 180 0"
+          scale=".032 .02515 .032"
+        ></a-gltf-model>
+      </a-entity>
+      
+      <a-plane
+        src="https://cdn.glitch.com/c68ca67d-e783-45d1-90d0-35b99ccf9361%2FSeamless%20cream%20marble%20cloud%20texture.jpg?1547146644573"
+        rotation="-90 0 0"
+        height="100"
+        width="100"
+        metalness=".3"
+        repeat= "20 20"
+      ></a-plane>
+
+      <a-sky
+        src="https://cdn.glitch.com/c68ca67d-e783-45d1-90d0-35b99ccf9361%2Fimage.png?1547146338665"
+        shader="standard"
+        material="emissive: #f90; emissiveIntensity: .25"
+      ></a-sky>
+    </a-scene>
+  </body>
+</html>
